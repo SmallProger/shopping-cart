@@ -5,7 +5,7 @@ import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import {Box, Container} from '@mui/system';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {useAppDispatch, useAppSelector} from '../store/hooks/hooks';
 import {addToCart, removeFromCart} from '../store/reducers/cart';
 import ButtonGroup from '@mui/material/ButtonGroup';
@@ -23,10 +23,11 @@ const ButtonAddToCart = (handleClickAdd: () => void) => (
   </Button>
 );
 
-export default function MediaCard({id, name, price, imgUrl}: MediaCardProps) {
+export default function StoreItem({id, name, price, imgUrl}: MediaCardProps) {
   let [isAddedToCart, setIsAddedToCart] = useState<boolean>(false);
 
   const dispatch = useAppDispatch();
+
   let amountInCard = useAppSelector<number>((state) => {
     let cardInStore = state.cart.find((elem) => elem.id == id);
     if (cardInStore) {
@@ -34,6 +35,14 @@ export default function MediaCard({id, name, price, imgUrl}: MediaCardProps) {
     }
     return 0;
   });
+
+  //method switchs the state isAddedToCart, when page are reloaded
+  useEffect(() => {
+    if (amountInCard > 0) {
+      setIsAddedToCart(true);
+    }
+  }, []);
+
   function handleClickAdd() {
     setIsAddedToCart(true);
     dispatch(
@@ -41,15 +50,18 @@ export default function MediaCard({id, name, price, imgUrl}: MediaCardProps) {
         id,
         name,
         price,
+        imgUrl,
       })
     );
   }
+
   function handleClickRemove() {
     if (amountInCard == 1) {
       setIsAddedToCart(false);
     }
-    dispatch(removeFromCart(name));
+    dispatch(removeFromCart(id));
   }
+
   return (
     <Card sx={{maxWidth: 285}}>
       <CardMedia sx={{height: 140}} image={imgUrl} title={name} />
