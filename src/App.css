@@ -1,2 +1,10 @@
-body {
+/* Скрываем scrollbar для Chrome, Safari и Opera */
+.drawer-box::-webkit-scrollbar {
+  display: none;
+}
+
+/* Скрываем scrollbar для IE, Edge и Firefox */
+.drawer-box {
+  -ms-overflow-style: none; /* IE и Edge */
+  scrollbar-width: none; /* Firefox */
 }

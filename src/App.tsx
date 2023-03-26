@@ -8,7 +8,7 @@ import {Container} from '@mui/system';
 import {Navbar} from './components/Navbar';
 import {Provider} from 'react-redux';
 import {store} from './store/store';
-
+import Drawer from '../src/components/Drawer';
 function App() {
   useEffect(() => {
     console.log('here');
