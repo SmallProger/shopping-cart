@@ -1,77 +1,80 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
-import Button from '@mui/material/Button';
 import List from '@mui/material/List';
-import Divider from '@mui/material/Divider';
 import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
-
-type Anchor = 'top' | 'left' | 'bottom' | 'right';
+import {DrawerItem} from './DrawerItem';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import {IconButton, Tooltip, Badge, Typography} from '@mui/material';
+import {useAppSelector} from '../store/hooks/hooks';
+import CloseIcon from '@mui/icons-material/Close';
 
 export default function TemporaryDrawer() {
-  const [state, setState] = React.useState({
-    top: false,
-    left: false,
-    bottom: false,
-    right: false,
-  });
+  const [isOpened, setIsOpened] = React.useState(false);
+  const [amountItemsInCart, setAmountItemsInCart] = React.useState(0);
+  const [totalPrice, setTotalPrice] = React.useState(0);
+  const cartItems = useAppSelector((state) => state.cart);
 
-  const toggleDrawer = (anchor: Anchor, open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
-    if (
-      event.type === 'keydown' &&
-      ((event as React.KeyboardEvent).key === 'Tab' || (event as React.KeyboardEvent).key === 'Shift')
-    ) {
-      return;
-    }
-
-    setState({...state, [anchor]: open});
+  const toggleDrawer = (open: boolean) => () => {
+    setIsOpened(open);
   };
 
-  const list = (anchor: Anchor) => (
+  React.useEffect(() => {
+    setAmountItemsInCart(cartItems.reduce((prev, next) => prev + next.amount, 0));
+    setTotalPrice(Math.floor(cartItems.reduce((prev, next) => prev + next.amount * next.price, 0)));
+  }, [cartItems]);
+
+  const list = () => (
     <Box
-      sx={{width: anchor === 'top' || anchor === 'bottom' ? 'auto' : 250}}
+      sx={{width: '370px', overflowY: 'scroll', maxHeight: '800px'}}
+      className='drawer-box'
       role='presentation'
-      onClick={toggleDrawer(anchor, false)}
-      onKeyDown={toggleDrawer(anchor, false)}>
-      <List>
-        {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
-      <Divider />
-      <List>
-        {['All mail', 'Trash', 'Spam'].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
+      onClick={toggleDrawer(false)}
+      onKeyDown={toggleDrawer(false)}>
+      {cartItems.length != 0 ? (
+        <List>
+          {cartItems.map((item) => {
+            return <ListItem key={item.id}>{DrawerItem(item)}</ListItem>;
+          })}
+        </List>
+      ) : (
+        <Typography sx={{padding: '10px'}} variant='h6'>
+          Empty. Add the items you want to your shopping cart
+        </Typography>
+      )}
     </Box>
   );
 
   return (
     <div>
-      {(['left', 'right', 'top', 'bottom'] as const).map((anchor) => (
-        <React.Fragment key={anchor}>
-          <Button onClick={toggleDrawer(anchor, true)}>{anchor}</Button>
-          <Drawer anchor={anchor} open={state[anchor]} onClose={toggleDrawer(anchor, false)}>
-            {list(anchor)}
-          </Drawer>
-        </React.Fragment>
-      ))}
+      <Tooltip title='Open shopping cart'>
+        <IconButton
+          onClick={toggleDrawer(true)}
+          sx={{color: '#55AAFF', border: '1px solid #55AAFF'}}
+          aria-label='Open shopping cart'
+          size='large'>
+          <Badge
+            anchorOrigin={{
+              vertical: 'bottom',
+              horizontal: 'right',
+            }}
+            badgeContent={amountItemsInCart}
+            color='error'>
+            <ShoppingCartIcon />
+          </Badge>
+        </IconButton>
+      </Tooltip>
+      <Drawer anchor={'right'} open={isOpened} onClose={toggleDrawer(false)}>
+        <CloseIcon
+          sx={{alignSelf: 'flex-end', margin: '10px', cursor: 'pointer'}}
+          fontSize='large'
+          onClick={toggleDrawer(false)}
+        />
+        {list()}
+        <Typography sx={{margin: 'auto', marginBottom: '30px'}} variant='h6'>
+          Total Price: {totalPrice}$
+        </Typography>
+      </Drawer>
     </div>
   );
 }
