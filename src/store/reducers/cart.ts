@@ -1,11 +1,12 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-
-interface CardInfo {
+import {useLocalStorage} from '../hooks/useLocalStorage';
+interface StoreItem {
   name: string;
   id: number;
   price: number;
+  imgUrl: string;
 }
-interface CartItem extends CardInfo {
+export interface CartItem extends StoreItem {
   amount: number;
 }
 
@@ -13,7 +14,7 @@ const cartReducer = createSlice({
   name: 'cart',
   initialState: <CartItem[]>[],
   reducers: {
-    addToCart(state, action: PayloadAction<CardInfo>) {
+    addToCart(state, action: PayloadAction<StoreItem>) {
       let indexCartItem = -1;
       if ((indexCartItem = state.findIndex((elem) => elem.id == action.payload.id)) === -1) {
         state.push({
@@ -25,8 +26,8 @@ const cartReducer = createSlice({
         state[indexCartItem].amount++;
       }
     },
-    removeFromCart(state, action: PayloadAction<string>) {
-      let indexCartItem = state.findIndex((elem) => elem.name == action.payload);
+    removeFromCart(state, action: PayloadAction<number>) {
+      let indexCartItem = state.findIndex((elem) => elem.id == action.payload);
       let cartItem = state[indexCartItem];
       if (cartItem.amount === 1) {
         console.log('state slice');
