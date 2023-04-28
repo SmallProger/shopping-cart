@@ -1,6 +1,6 @@
 import './App.css';
 import {Route, Routes} from 'react-router-dom';
-import {Home} from './pages/Home';
+import {News} from './pages/News';
 import {About} from './pages/About';
 import {Store} from './pages/Store';
 import {useEffect} from 'react';
@@ -19,8 +19,8 @@ function App() {
         <Container sx={{display: 'flex', flexDirection: 'column', gap: '20px'}}>
           <Navbar></Navbar>
           <Routes>
-            <Route path='/' element={<Home />} />
-            <Route path='/about' element={<About />} />
+            <Route path='/' element={<News />} />
+            <Route path='/about/:id' element={<About />} />
             <Route path='/store' element={<Store />} />
           </Routes>
         </Container>

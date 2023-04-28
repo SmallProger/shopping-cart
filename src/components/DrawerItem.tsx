@@ -6,11 +6,11 @@ import Container from '@mui/material/Container';
 import {Box, List, ListItem} from '@mui/material';
 import {Typography} from '@mui/material';
 
-export function DrawerItem(props: CartItem) {
+export default function DrawerItem(props: CartItem) {
   let {id, price, amount, name, imgUrl} = props;
   return (
     <Card sx={{display: 'flex', height: '100px', width: '100%'}}>
-      <CardMedia sx={{height: 100, width: '40%'}} image={imgUrl} title={name} />
+      <CardMedia sx={{height: 100, width: '40%', backgroundSize: 'contain !important'}} image={imgUrl} title={name} />
       <CardContent sx={{padding: 0}}>
         <Container>
           <Box sx={{padding: '5px'}}>
@@ -18,7 +18,7 @@ export function DrawerItem(props: CartItem) {
               {name}
             </Typography>
             <List>
-              <ListItem sx={{padding: 0}}>Price: {price} $</ListItem>
+              <ListItem sx={{padding: 0}}>Price: {price}pуб</ListItem>
               <ListItem sx={{padding: 0}}>Amount: {amount}</ListItem>
             </List>
           </Box>

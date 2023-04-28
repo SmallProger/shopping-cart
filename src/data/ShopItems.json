@@ -1,0 +1,38 @@
+[
+  {
+    "id": 1,
+    "name": "Ноутбук HP Victus 16-e1050ci",
+    "price": 82790,
+    "CPU": "AMD Ryzen 5 6600H (6x3.30 ГГц)",
+    "screen": "16.1 (1920x1080) IPS, 144 Гц",
+    "videocard": "NVIDIA GeForce RTX 3050 Ti",
+    "imgUrl": "/imgs/Victus.jpg"
+  },
+  {
+    "id": 2,
+    "name": "Ноутбук Acer Nitro 5 AN515-57-70G8",
+    "price": 67319,
+    "CPU": "Intel Core i7 11800H",
+    "screen": "15.6 (1920x1080) IPS, 144 Гц",
+    "videocard": "GeForce RTX 3050 Ti",
+    "imgUrl": "/imgs/AcerNitro.jpg"
+  },
+  {
+    "id": 3,
+    "name": "Ноутбук HONOR MagicBook 15",
+    "price": 67319,
+    "CPU": "AMD Ryzen 5 5500U (6x2.10 ГГц)",
+    "screen": "15.6 (1920x1080) IPS, 60 Гц",
+    "videocard": "AMD Radeon Graphics",
+    "imgUrl": "/imgs/HonorMagicBook.jpg"
+  },
+  {
+    "id": 4,
+    "name": "Ноутбук CHUWI CoreBook XCWI529",
+    "price": 67319,
+    "CPU": "Intel Core i3 10110U (2x2.10 ГГц)",
+    "screen": "14 (2160x1440) IPS, 60 Гц",
+    "videocard": "Intel HD Graphics 620",
+    "imgUrl": "/imgs/CHUWI.jpg"
+  }
+]

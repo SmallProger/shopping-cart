@@ -1,0 +1,38 @@
+[
+  {
+    "id": 1,
+    "name": "Intel Core I3 обзор",
+    "description": "lolo",
+    "imgUrl": "/imgs/Intel.png"
+  },
+  {
+    "id": 2,
+    "name": "Intel Core I3 обзор",
+    "description": "lolo",
+    "imgUrl": "/imgs/Intel.png"
+  },
+  {
+    "id": 3,
+    "name": "Intel Core I3 обзор",
+    "description": "lolo",
+    "imgUrl": "/imgs/Intel.png"
+  },
+  {
+    "id": 4,
+    "name": "Intel Core I3 обзор",
+    "description": "lolo",
+    "imgUrl": "/imgs/Intel.png"
+  },
+  {
+    "id": 5,
+    "name": "Intel Core I3 обзор",
+    "description": "lolo",
+    "imgUrl": "/imgs/Intel.png"
+  },
+  {
+    "id": 6,
+    "name": "Intel Core I3 обзор",
+    "description": "lolo",
+    "imgUrl": "/imgs/Intel.png"
+  }
+]

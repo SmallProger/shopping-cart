@@ -2,6 +2,7 @@ import {Tabs, Tab, Box, Paper} from '@mui/material';
 import {useLocation, useNavigate} from 'react-router-dom';
 import {useEffect, useState} from 'react';
 import Drawer from './Drawer';
+
 function Navbar() {
   let [value, setValue] = useState<string>('/');
   let navigate = useNavigate();
@@ -19,7 +20,6 @@ function Navbar() {
         <Tabs value={value} onChange={handleChange}>
           <Tab label='Home' value={'/'}></Tab>
           <Tab label='Store' value={'/store'}></Tab>
-          <Tab label='About' value={'/about'}></Tab>
         </Tabs>
         <Drawer />
       </Box>
